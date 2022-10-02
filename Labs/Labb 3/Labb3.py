@@ -1,4 +1,7 @@
 from Geometric_Shapes import *
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+
 
 
 
@@ -16,14 +19,28 @@ if __name__ == "__main__":
     
     print(circle1 > circle2)
     print(circle1 < circle2)
+    
+    print(circle1)
+    
+    print(circle1.Area)
 
 
-#en operator overload av komparatoroperatorer < , > , <= , >= för jämförelser
-#en override av __repr__()
-#en override av __str__()
-#x och y som representerar mittpositionen av objektet
-#en translationsmetod som gör det möjligt att förflytta x och y
-#en metod som checkar om en viss punkt befinner sig innanför i objektet
-#felhantering
-#en metod som checkar om cirkelinstansen är en enhetscirkel
-#en metod som checkar om rektangelinstansen är en kvadrat
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    
+    rect1 = patches.Rectangle((-200, -100), 400, 200, color ='green')
+    
+    ax.add_patch(rect1)
+    
+    plt.xlim([-400, 400])
+    plt.ylim([-400, 400])
+    
+    plt.show()
+
+# todo:
+# display shapes
+# en translationsmetod som gör det möjligt att förflytta x och y
+# en metod som checkar om en viss punkt befinner sig innanför i objektet
+# felhantering
+# en metod som checkar om cirkelinstansen är en enhetscirkel
+# en metod som checkar om rektangelinstansen är en kvadrat
