@@ -9,7 +9,7 @@ if __name__ == "__main__":
     circle1 = Circle(10, 15, 5)
     circle2 = Circle(10, 15, 10)
     rectangle1 = rect(10, 15, 2, 10)
-    rectangle2 = rect(10, 15, 5, 10)
+    rectangle2 = rect(10, 15, 2, 10)
 
     print(f"circle1 area: {circle1.Area}")
     print(f"circle1 Circumference: {circle1.Circumference}\n")
@@ -24,7 +24,9 @@ if __name__ == "__main__":
     
     print(circle1.Area)
     
-    print(f"jew: {rectangle1.IsSquare()}")
+    print(f"{rectangle1.__dict__=}")
+    print(f"{rectangle2.__dict__=}")
+    print(f"jew: {rectangle1 == rectangle2}")
     
 
 
