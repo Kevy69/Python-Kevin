@@ -1,4 +1,6 @@
 from math import pi
+import pygame
+from random import randint
 
 # Shape class, which the other (more specific) shapes inherit from
 class Shape():
@@ -9,24 +11,80 @@ class Shape():
         self._Y = Y
         self._Area = None
         self._Circumference = None
+        
+        # get set
+        
+        self.AccelerationX = 0
+        self.AccelerationY = 0
+        
+        self.Gravity = 1
+        
+        self.Color = (randint(0, 255),  # R
+                      randint(0, 255),  # G
+                      randint(0, 255),) # B
     
     # Readonly properies
     
     @property
-    def X(self) -> None:
+    def X(self) -> int:
         return self._X
     
     @property
-    def Y(self) -> None:
+    def Y(self) -> int:
         return self._Y
         
     @property
-    def Area(self) -> None:
+    def Area(self) -> int:
         return self._Area
 
     @property
-    def Circumference(self) -> None:
+    def Circumference(self) -> int:
         return self._Circumference
+    
+    # Read/write properties
+    
+    @property
+    def AccelerationX(self) -> int:
+        return self._AccelerationX
+
+    @AccelerationX.setter
+    def AccelerationX(self, value) -> None:
+        if not isinstance(value, int):
+            raise TypeError("only int's are allowed!")
+        self._AccelerationX = value
+        
+    @property
+    def AccelerationY(self) -> int:
+        return self._AccelerationY
+
+    @AccelerationY.setter
+    def AccelerationY(self, value) -> None:
+        if not isinstance(value, int):
+            raise TypeError("only int's are allowed!")
+        self._AccelerationY = value
+    
+    
+    @property
+    def Gravity(self) -> int:
+        return self._Gravity
+    
+    @Gravity.setter
+    def Gravity(self, value) -> None:
+        if not isinstance(value, int):
+            raise TypeError("only int's are allowed!")
+        self._Gravity = value
+    
+    
+    @property
+    def Color(self) -> tuple:
+        return self._Color
+
+    @Color.setter
+    def Color(self, value) -> None:
+        if not isinstance(value, int):
+            raise TypeError("only int's are allowed!")
+        self._Color = value
+            
         
     # Operator overloadings.
     
@@ -62,10 +120,19 @@ class Shape():
     def __repr__(self) -> str:
         return str(self.__dict__)
     
-    
     def Translate(self, x: int, y: int) -> None:
+        if not isinstance(x, int) or not isinstance(y, int):
+            raise TypeError("only int's are allowed!")
         self._X = x
         self._Y = y
+        
+    def SimulateForces(self) -> None:
+        self._X -= self.AccelerationX
+        self._Y -= self.AccelerationY
+
+        #self.AccelerationX -= self.Gravity
+        
+        self.AccelerationY = self.AccelerationY - self.Gravity
 
 
 
@@ -73,6 +140,10 @@ class Rectangle(Shape):
     def __init__(self, X: int, Y: int, Width: int, Height: int) -> None:
         # To propely inherit from Shape class
         super().__init__(X, Y)
+        
+        if not isinstance(Width, int) or not isinstance(Height, int):
+            raise TypeError("only int's are allowed!")
+            
         
         # Readonly properies
         
@@ -106,6 +177,9 @@ class Circle(Shape):
     def __init__(self, X: int, Y: int, Radius) -> None:
         # To propely inherit from Shape class
         super().__init__(X, Y)
+        
+        if not isinstance(Radius, int):
+            raise TypeError("only int's are allowed!")
 
         # Readonly properies
         
@@ -125,5 +199,12 @@ class Circle(Shape):
         if self._X == 0 and self._Y == 0 and self._Radius == 1: return True
         return False
     
-    def IsInside(self) -> bool:
-        pass
+    def IsInside(self, PointX: int, PointY: int) -> bool:
+        if not isinstance(PointX, int) or not isinstance(PointY, int):
+            raise TypeError("only int's are allowed!")
+        
+        # Source: https://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
+        return (PointX - self._X)**2 + (PointY - self._Y)**2 < self._Radius**2
+    
+    def Draw(self, window) -> None:
+        pygame.draw.circle(window, self.Color, [self._X, self._Y], self.Radius, 0)
