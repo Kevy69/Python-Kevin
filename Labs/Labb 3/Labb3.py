@@ -49,12 +49,6 @@ if __name__ == "__main__":
 
     while run:
         pygame.time.delay(10)
-        
-        pygame.draw.circle(win, (255, 0, 0), [
-                           100, 100], 14, 0)
-        
-        pygame.draw.circle(win, (255, 0, 0), [
-            90, 90], 1, 0)
 
 
         for event in pygame.event.get():

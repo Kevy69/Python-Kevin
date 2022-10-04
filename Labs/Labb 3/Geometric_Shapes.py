@@ -81,8 +81,8 @@ class Shape():
 
     @Color.setter
     def Color(self, value) -> None:
-        if not isinstance(value, int):
-            raise TypeError("only int's are allowed!")
+        if not isinstance(value, tuple):
+            raise TypeError("only tuples's are allowed!")
         self._Color = value
             
         
