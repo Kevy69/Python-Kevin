@@ -3,7 +3,7 @@ from math import pi
 from random import randint
 
 class Shape():
-    """Shape class, which the other (more specific) shapes inherit from"""
+    """Shape class, which the other (more specific) shapes inherits from"""
     def __init__(self, X: int, Y: int) -> None:
         # Readonly properties
         self._X = X
@@ -19,7 +19,7 @@ class Shape():
         
         self.Color = (randint(0, 255),  # R
                       randint(0, 255),  # G
-                      randint(0, 255)) # B
+                      randint(0, 255))  # B
     
     # Readonly property definitions
     @property
