@@ -9,34 +9,26 @@ from random import randint
 
 
 if __name__ == "__main__":
-    circle1 = Circle(100, 100, 14)
-    circle2 = Circle(10, 15, 10)
-    rectangle1 = Rectangle(10, 15, 2, 10)
-    rectangle2 = Rectangle(10, 15, 2, 10)
+    
+    cirkel1 = Circle(X=0, Y=0, Radius=5)  # enhetscirkel
+    cirkel2 = Circle(X=1, Y=1, Radius=5)
+    rektangel = Rectangle(X=0, Y=0, side1=1, side2=1)
+    
+    print(cirkel1 == cirkel2)  # True
+    print(cirkel2 == rektangel)  # False
+    print(cirkel1.IsInside(2, 2))  # True
+    cirkel1.Translate(5, 5)
+    print(cirkel1.IsInside(10, 10))  # False
+    
+    # Throws error, used for demo
+    #cirkel1.Translate("TRE", 5)  # ge ValueError med lämplig kommentar
 
-    print(f"circle1 area: {circle1.Area}")
-    print(f"circle1 Circumference: {circle1.Circumference}\n")
-    
-    print(f"circle2 area: {circle2.Area}")
-    print(f"circle2 Circumference: {circle2.Circumference}")
-    
-    print(circle1 > circle2)
-    print(circle1 < circle2)
-    
-    print(circle1)
-    
-    print(circle1.Area)
+
+
+    # Fireworks section
     
     Particles = []
-    Particles2 = []
-    
-    #Particle = Circle(randint(1, 1200), 800, randint(1, 30))
-    #Particle.AccelerationY = 30
-    
-    circle1.IsInside(90, 90)
-    
-    
-    
+
     pygame.init()
 
     win = pygame.display.set_mode((1200, 700))
@@ -44,58 +36,74 @@ if __name__ == "__main__":
 
     run = True
 
-    ticks = 0
-    ticks2 = 0
+    ticks = 300
+    TimeBetweenFireworks = randint(30, 100)
 
     while run:
+        # (Attempt) to run loop every 10 ms (100 times/sec)
         pygame.time.delay(10)
-
-
+        
+        # Make sure user cant quit via window
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
         
-        
-        if ticks >= 80:
-            Particles.append(Circle(randint(1, 1200), 800, randint(3, 6)))
-            Particles[-1].AccelerationY = randint(20, 40)
+        # Wait for ticks to increment up to n number, where n is randomly defined
+        if ticks >= TimeBetweenFireworks:
+            # Spawn some particles!
+            Particles.append(Circle(randint(1, 1200), 800, 3))
+            Particles[-1].Color = (255, 255, 255)
             
+            # Give acceleration so they shoot up from the bottom of the screen like rockets
+            Particles[-1].AccelerationY = randint(20, 38)
+            
+            # Reset tick based timers
+            TimeBetweenFireworks = randint(20, 120)
             ticks = 0
-
-        if ticks2 >= 2:
+        
+        # Simulate forces
+        # using mod (%) operator to only run this section every other loop iteration
+        # in order to slow down physics simulation to a more desirable speed.
+        if ticks % 2 == 0:
+            # Clear the screen
             win.fill((0, 0, 0))
+            
+            # Draw and simulate physics for each particle instance
             for Index, Particle in enumerate(Particles):
                 Particle.SimulateForces()
                 Particle.Draw(win)
-            
+                
+                # Check if particle has reached apogee (highest point in its ascent).
+                # Also check particle radius in order to make sure we dont cleanup the
+                # negatively accelerating particles that represent the actual firework "cloud"
                 if Particle.AccelerationY <= 0 and Particle.Radius >= 3:
+                    # Delete the particle
                     Particles.pop(Index)
                     
-                    for _ in range(30):
+                    # Spawn a bunch of new particles that will shoot in all different directions,
+                    # simulating fireworks!
+                    for _ in range(randint(20, 40)):
+                        
+                        # Spawn them at the prior location of the "parent" particle with a
+                        # random size and acceleration
                         Particles.append(
-                            Circle(Particle.X, Particle.Y, 2))
-                        Particles[-1].AccelerationX = randint(-5, 5)
+                            Circle(Particle.X, Particle.Y, randint(1, 2)))
+                        Particles[-1].AccelerationX = randint(-6, 6)
                         Particles[-1].AccelerationY = randint(0, 10)
-                        #Particles[-1].Gravity = randint(1, 3)
-                    
+                
+                # Check if particle has gone out of bounds (e.g off the screen/window),
+                # if so, delete. This is crucial in order to prevent the program from killing itself by
+                # creating a bunch of class instances.
                 if Particle.Y > 850:
                     Particles.pop(Index)
-            
-            ticks2 = 0
-    
-        
-        # Cleanup
-        
-        ticks += 1
-        ticks2 += 1
-        
-        pygame.display.update()
 
+
+        ticks += 1
+        pygame.display.update()
+        
     pygame.quit()
 
 
 
 # todo:
-# en metod som checkar om en viss punkt befinner sig innanför i objektet
-# felhantering
 # UML
