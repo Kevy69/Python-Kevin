@@ -1,8 +1,7 @@
-from textwrap import indent
-from Geometric_Shapes import Rectangle
-from Geometric_Shapes import Circle
 import pygame
 from random import randint
+from Geometric_Shapes import Circle
+from Geometric_Shapes import Rectangle
 
 
 

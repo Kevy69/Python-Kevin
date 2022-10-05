@@ -1,5 +1,5 @@
-from math import pi
 import pygame
+from math import pi
 from random import randint
 
 class Shape():
