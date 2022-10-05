@@ -123,7 +123,6 @@ class Rectangle(Shape):
         if not isinstance(side1, int) or not isinstance(side2, int):
             raise TypeError("only int's are allowed!")
             
-        
         # Readonly properties
         self._side1 = side1
         self._side2 = side2
@@ -134,11 +133,11 @@ class Rectangle(Shape):
     
     # Readonly property definitions
     @property
-    def side1(self) -> None:
+    def side1(self) -> int:
         return self._side1
 
     @property
-    def side2(self) -> None:
+    def side2(self) -> int:
         return self._side2
     
     def __eq__(self, OtherObj) -> bool:
@@ -153,7 +152,7 @@ class Rectangle(Shape):
         return False
     
     # Draw the rectangle
-    def Draw(self, window) -> None:
+    def Draw(self, window: pygame.Surface) -> None:
         pygame.draw.rect(window, self.Color, pygame.Rect(
             self._X, self._Y, self._side1, self._side2))
 
@@ -176,7 +175,7 @@ class Circle(Shape):
         
     # Readonly property definitions
     @property
-    def Radius(self) -> None:
+    def Radius(self) -> int:
         return self._Radius
     
     def __eq__(self, OtherObj) -> bool:
@@ -199,7 +198,7 @@ class Circle(Shape):
         return (PointX - self.X)**2 + (PointY - self.Y)**2 < self.Radius**2
     
     # Draw circle
-    def Draw(self, window) -> None:
+    def Draw(self, window: pygame.Surface) -> None:
         pygame.draw.circle(window, self.Color, [self.X, self.Y], self.Radius, 0)
         
 
