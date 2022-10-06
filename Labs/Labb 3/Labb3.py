@@ -11,7 +11,7 @@ if __name__ == "__main__":
     
     cirkel1 = Circle(X=0, Y=0, Radius=5)  # enhetscirkel
     cirkel2 = Circle(X=1, Y=1, Radius=5)
-    rektangel = Rectangle(X=0, Y=0, side1=1, side2=1)
+    rektangel = Rectangle(X=0, Y=0, Side1=1, Side2=1)
     
     print(cirkel1 == cirkel2)  # True
     print(cirkel2 == rektangel)  # False

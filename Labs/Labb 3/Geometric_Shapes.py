@@ -116,29 +116,29 @@ class Shape():
 
 class Rectangle(Shape):
     """Rectangle class. A class that can be used to spawn, manipulate and keep track of rectangles"""
-    def __init__(self, X: int, Y: int, side1: int, side2: int) -> None:
+    def __init__(self, X: int, Y: int, Side1: int, Side2: int) -> None:
         # To propely inherit from Shape class
         super().__init__(X, Y)
         
-        if not isinstance(side1, int) or not isinstance(side2, int):
+        if not isinstance(Side1, int) or not isinstance(Side2, int):
             raise TypeError("only int's are allowed!")
             
         # Readonly properties
-        self._side1 = side1
-        self._side2 = side2
+        self._Side1 = Side1
+        self._Side2 = Side2
         
         # Caution! PEMDAS/BEDMAS's order of operation
-        self._Area = side1 * side2
-        self._Circumference = 2 * (side1 + side2)
+        self._Area = Side1 * Side2
+        self._Circumference = 2 * (Side1 + Side2)
     
     # Readonly property definitions
     @property
-    def side1(self) -> int:
-        return self._side1
+    def Side1(self) -> int:
+        return self._Side1
 
     @property
-    def side2(self) -> int:
-        return self._side2
+    def Side2(self) -> int:
+        return self._Side2
     
     def __eq__(self, OtherObj) -> bool:
         if isinstance(OtherObj, Rectangle):
@@ -147,14 +147,14 @@ class Rectangle(Shape):
     
     # Check if shape is a square
     def IsSquare(self) -> bool:
-        if self._side1 == self._side2:
+        if self._Side1 == self._Side2:
             return True
         return False
     
     # Draw the rectangle
     def Draw(self, window: pygame.Surface) -> None:
         pygame.draw.rect(window, self.Color, pygame.Rect(
-            self._X, self._Y, self._side1, self._side2))
+            self._X, self._Y, self._Side1, self._Side2))
 
 
 class Circle(Shape):
