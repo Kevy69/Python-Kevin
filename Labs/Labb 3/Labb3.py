@@ -9,14 +9,14 @@ from Geometric_Shapes import Rectangle
 
 if __name__ == "__main__":
 
-    rectjew = Rectangle(X=0, Y=0, SideX=10, SideY=10)
+    rectjew = Rectangle(x=0, y=0, side_x=10, side_y=10)
 
     print(f"isinside={rectjew.IsInside(PointX=5, PointY=5)}")
-    quit()
+    #quit()
     
-    cirkel1 = Circle(X=0, Y=0, Radius=5)  # enhetscirkel
-    cirkel2 = Circle(X=1, Y=1, Radius=5)
-    rektangel = Rectangle(X=0, Y=0, SideX=1, SideY=1)
+    cirkel1 = Circle(x=0, y=0, radius=5)  # enhetscirkel
+    cirkel2 = Circle(x=1, y=1, radius=5)
+    rektangel = Rectangle(x=0, y=0, side_x=1, side_y=1)
     
     print(cirkel1 == cirkel2)  # True
     print(cirkel2 == rektangel)  # False
@@ -56,10 +56,10 @@ if __name__ == "__main__":
         if ticks >= TimeBetweenFireworks:
             # Spawn some particles!
             Particles.append(Circle(randint(1, 1200), 800, 3))
-            Particles[-1].Color = (255, 255, 255)
+            Particles[-1].color = (255, 255, 255)
             
             # Give acceleration so they shoot up from the bottom of the screen like rockets
-            Particles[-1].AccelerationY = randint(20, 38)
+            Particles[-1].acceleration_y = randint(20, 38)
             
             # Reset tick based timers
             TimeBetweenFireworks = randint(20, 120)
@@ -80,7 +80,7 @@ if __name__ == "__main__":
                 # Check if particle has reached apogee (highest point in its ascent).
                 # Also check particle radius in order to make sure we dont cleanup the
                 # negatively accelerating particles that represent the actual firework "cloud"
-                if Particle.AccelerationY <= 0 and Particle.Radius >= 3:
+                if Particle.acceleration_y <= 0 and Particle.radius >= 3:
                     # Delete the particle
                     Particles.pop(Index)
                     
@@ -91,14 +91,14 @@ if __name__ == "__main__":
                         # Spawn them at the prior location of the "parent" particle with a
                         # random size and acceleration
                         Particles.append(
-                            Circle(Particle.X, Particle.Y, randint(1, 2)))
-                        Particles[-1].AccelerationX = randint(-6, 6)
-                        Particles[-1].AccelerationY = randint(0, 10)
+                            Circle(Particle.x, Particle.y, randint(1, 2)))
+                        Particles[-1].acceleration_x = randint(-6, 6)
+                        Particles[-1].acceleration_y = randint(0, 10)
                 
                 # Check if particle has gone out of bounds (e.g off the screen/window),
                 # if so, delete. This is crucial in order to prevent the program from killing itself by
                 # creating a bunch of class instances.
-                if Particle.Y > 850:
+                if Particle.y > 850:
                     Particles.pop(Index)
 
 
