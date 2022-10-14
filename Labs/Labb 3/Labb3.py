@@ -12,7 +12,7 @@ if __name__ == "__main__":
     rectjew = Rectangle(x=0, y=0, side_x=10, side_y=10)
 
     print(f"isinside={rectjew.IsInside(PointX=5, PointY=5)}")
-    #quit()
+    quit()
     
     cirkel1 = Circle(x=0, y=0, radius=5)  # enhetscirkel
     cirkel2 = Circle(x=1, y=1, radius=5)
