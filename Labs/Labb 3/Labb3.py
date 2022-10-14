@@ -8,11 +8,6 @@ from Geometric_Shapes import Rectangle
 
 
 if __name__ == "__main__":
-
-    rectjew = Rectangle(x=0, y=0, side_x=10, side_y=10)
-
-    print(f"isinside={rectjew.IsInside(PointX=5, PointY=5)}")
-    quit()
     
     cirkel1 = Circle(x=0, y=0, radius=5)  # enhetscirkel
     cirkel2 = Circle(x=1, y=1, radius=5)
@@ -20,9 +15,9 @@ if __name__ == "__main__":
     
     print(cirkel1 == cirkel2)  # True
     print(cirkel2 == rektangel)  # False
-    print(cirkel1.IsInside(2, 2))  # True
-    cirkel1.Translate(5, 5)
-    print(cirkel1.IsInside(10, 10))  # False
+    print(cirkel1.is_inside(2, 2))  # True
+    cirkel1.translate(5, 5)
+    print(cirkel1.is_inside(10, 10))  # False
     
     # Throws error, used for demo
     #cirkel1.Translate("TRE", 5)  # ge ValueError med lämplig kommentar
@@ -74,8 +69,8 @@ if __name__ == "__main__":
             
             # Draw and simulate physics for each particle instance
             for Index, Particle in enumerate(Particles):
-                Particle.SimulateForces()
-                Particle.Draw(win)
+                Particle.simulateForces()
+                Particle.draw(win)
                 
                 # Check if particle has reached apogee (highest point in its ascent).
                 # Also check particle radius in order to make sure we dont cleanup the

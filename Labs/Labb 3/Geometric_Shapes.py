@@ -100,14 +100,14 @@ class Shape():
         return str(self.__dict__)
     
     # Translate, e.g set new values for x/y
-    def Translate(self, x: int, y: int) -> None:
+    def translate(self, x: int, y: int) -> None:
         if not isinstance(x, int) or not isinstance(y, int):
             raise TypeError("only int's are allowed!")
         self._x = x
         self._y = y
     
     # Simulate acceleration and gravitational force.
-    def SimulateForces(self) -> None:
+    def simulateForces(self) -> None:
         self._x -= self.acceleration_x
         self._y -= self.acceleration_y
         self.acceleration_y -= self.gravity
@@ -146,29 +146,29 @@ class Rectangle(Shape):
         return False
     
     # Check if a given point is inside the circle instance
-    def IsInside(self, PointX: int, PointY: int) -> bool:
+    def is_inside(self, PointX: int, PointY: int) -> bool:
         if not isinstance(PointX, int) or not isinstance(PointY, int):
             raise TypeError("only int's are allowed!")
         
         # Calculate x/y points on the perimeter of the rectangle
-        x1 = self.x - self.side_x / 2
-        x2 = self.x + self.side_x / 2
+        x1 = self.x - (self.side_x / 2)
+        x2 = self.x + (self.side_x / 2)
         
-        y1 = self.y - self.side_y / 2
-        y2 = self.y + self.side_y / 2
+        y1 = self.y - (self.side_y / 2)
+        y2 = self.y + (self.side_y / 2)
         
         # Check if the given point is greather than or less than the perimeter point values.
         if PointX > x1 and PointX < x2 and PointY > y1 and PointY < y2: return True
         else: return False
     
     # Check if shape is a square
-    def IsSquare(self) -> bool:
+    def is_square(self) -> bool:
         if self.side_x == self.side_y:
             return True
         return False
     
     # Draw the rectangle
-    def Draw(self, window: pygame.Surface) -> None:
+    def draw(self, window: pygame.Surface) -> None:
         pygame.draw.rect(window, self.color, pygame.Rect(
             self.x, self.y, self.side_x, self.side_y))
 
@@ -200,12 +200,12 @@ class Circle(Shape):
         return False
     
     # Check if circle is at Origo, with a radius of 1
-    def IsUnitCircle(self) -> bool:
+    def is_unit_circle(self) -> bool:
         if self.x == 0 and self.y == 0 and self.radius == 1: return True
         return False
     
     # Check if a given point is inside the circle instance
-    def IsInside(self, PointX: int, PointY: int) -> bool:
+    def is_inside(self, PointX: int, PointY: int) -> bool:
         if not isinstance(PointX, int) or not isinstance(PointY, int):
             raise TypeError("only int's are allowed!")
         
@@ -214,7 +214,7 @@ class Circle(Shape):
         return (PointX - self.x)**2 + (PointY - self.y)**2 < self.radius**2
     
     # Draw circle
-    def Draw(self, window: pygame.Surface) -> None:
+    def draw(self, window: pygame.Surface) -> None:
         pygame.draw.circle(window, self.color, [self.x, self.y], self.radius, 0)
         
 
