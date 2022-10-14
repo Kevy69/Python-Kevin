@@ -116,45 +116,61 @@ class Shape():
 
 class Rectangle(Shape):
     """Rectangle class. A class that can be used to spawn, manipulate and keep track of rectangles"""
-    def __init__(self, X: int, Y: int, Side1: int, Side2: int) -> None:
+    def __init__(self, X: int, Y: int, SideX: int, SideY: int) -> None:
         # To propely inherit from Shape class
         super().__init__(X, Y)
         
-        if not isinstance(Side1, int) or not isinstance(Side2, int):
+        if not isinstance(SideX, int) or not isinstance(SideY, int):
             raise TypeError("only int's are allowed!")
             
         # Readonly properties
-        self._Side1 = Side1
-        self._Side2 = Side2
+        self._SideX = SideX
+        self._SideY = SideY
         
         # Caution! PEMDAS/BEDMAS's order of operation
-        self._Area = Side1 * Side2
-        self._Circumference = 2 * (Side1 + Side2)
+        self._Area = SideX * SideY
+        self._Circumference = 2 * (SideX + SideY)
     
     # Readonly property definitions
     @property
-    def Side1(self) -> int:
-        return self._Side1
+    def SideX(self) -> int:
+        return self._SideX
 
     @property
-    def Side2(self) -> int:
-        return self._Side2
+    def SideY(self) -> int:
+        return self._SideY
     
     def __eq__(self, OtherObj) -> bool:
         if isinstance(OtherObj, Rectangle):
             return True
         return False
     
+    # Check if a given point is inside the circle instance
+    def IsInside(self, PointX: int, PointY: int) -> bool:
+        if not isinstance(PointX, int) or not isinstance(PointY, int):
+            raise TypeError("only int's are allowed!")
+        
+        # Calculate x/y points on the perimeter of the rectangle
+        x1 = self.X - self.SideX / 2
+        x2 = self.X + self.SideX / 2
+        
+        y1 = self.Y - self.SideY / 2
+        y2 = self.Y + self.SideY / 2
+        
+        # Check if the given point is greather than or less than the perimeter point values.
+        if PointX > x1 and PointX < x2 and PointY > y1 and PointY < y2: return True
+        else: return False
+    
     # Check if shape is a square
     def IsSquare(self) -> bool:
-        if self._Side1 == self._Side2:
+        if self.SideX == self.SideY:
             return True
         return False
     
     # Draw the rectangle
     def Draw(self, window: pygame.Surface) -> None:
         pygame.draw.rect(window, self.Color, pygame.Rect(
-            self._X, self._Y, self._Side1, self._Side2))
+            self.X, self.Y, self.SideX, self.SideY))
 
 
 class Circle(Shape):
