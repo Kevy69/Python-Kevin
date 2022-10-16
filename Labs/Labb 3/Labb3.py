@@ -8,10 +8,7 @@ import Geometric_Shapes
 
 
 
-if __name__ == "__main__":
-    
-    Geometric_Shapes.Shape
-    
+if __name__ == "__main__":    
     cirkel1 = Circle(x=0, y=0, radius=5)  # enhetscirkel
     cirkel2 = Circle(x=1, y=1, radius=5)
     rektangel = Rectangle(x=0, y=0, side_x=1, side_y=1)
