@@ -36,7 +36,7 @@ if __name__ == "__main__":
     run = True
 
     ticks = 300
-    TimeBetweenFireworks = randint(30, 100)
+    time_between_fireworks = randint(30, 100)
 
     while run:
         # (Attempt) to run loop every 10 ms (100 times/sec)
@@ -48,7 +48,7 @@ if __name__ == "__main__":
                 run = False
         
         # Wait for ticks to increment up to n number, where n is randomly defined
-        if ticks >= TimeBetweenFireworks:
+        if ticks >= time_between_fireworks:
             # Spawn some particles!
             particles.append(Circle(randint(1, 1200), 800, 3))
             particles[-1].color = (255, 255, 255)
@@ -57,7 +57,7 @@ if __name__ == "__main__":
             particles[-1].acceleration_y = randint(20, 38)
             
             # Reset tick based timers
-            TimeBetweenFireworks = randint(20, 120)
+            time_between_fireworks = randint(20, 120)
             ticks = 0
         
         # Simulate forces
