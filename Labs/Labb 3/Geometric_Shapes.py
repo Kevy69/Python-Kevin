@@ -3,7 +3,20 @@ from math import pi
 from random import randint
 
 class Shape():
-    """Shape class, which the other (more specific) shapes inherits from"""
+    """
+        A class which the other (more specific) shapes inherits from
+
+        Args:
+            x -> int
+            y -> int
+
+        Returns:
+            None
+
+        Raises:
+            TypeError
+    """
+    
     def __init__(self, x: int, y: int) -> None:
         if not isinstance(x, int) or not isinstance(y, int):
             raise TypeError("only int's are allowed!")
@@ -118,7 +131,22 @@ class Shape():
 
 
 class Rectangle(Shape):
-    """Rectangle class. A class that can be used to spawn, manipulate and keep track of rectangles"""
+    """
+        A class that can be used to spawn, manipulate and keep track of rectangles
+
+        Args:
+            x -> int
+            y -> int
+            side_x -> int
+            side_y -> int
+
+        Returns:
+            None
+
+        Raises:
+            TypeError
+    """
+    
     def __init__(self, x: int, y: int, side_x: int, side_y: int) -> None:
         # To propely inherit from Shape class
         super().__init__(x, y)
@@ -180,7 +208,21 @@ class Rectangle(Shape):
 
 
 class Circle(Shape):
-    """Circle class. A class that can be used to spawn, manipulate and keep track of rectangles"""
+    """
+        A class that can be used to spawn, manipulate and keep track of circles
+
+        Args:
+            x -> int
+            y -> int
+            radius -> int
+
+        Returns:
+            None
+
+        Raises:
+            TypeError
+    """
+    
     def __init__(self, x: int, y: int, radius) -> None:
         # To propely inherit from Shape class
         super().__init__(x, y)

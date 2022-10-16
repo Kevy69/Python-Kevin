@@ -2,12 +2,15 @@ import pygame
 from random import randint
 from Geometric_Shapes import Circle
 from Geometric_Shapes import Rectangle
+import Geometric_Shapes
 
 
 
 
 
 if __name__ == "__main__":
+    
+    Geometric_Shapes.Shape
     
     cirkel1 = Circle(x=0, y=0, radius=5)  # enhetscirkel
     cirkel2 = Circle(x=1, y=1, radius=5)
