@@ -1,8 +1,9 @@
 import pygame
 from math import pi
 from random import randint
+from abc import abstractmethod, ABC
 
-class Shape():
+class Shape(ABC):
     """
         A class which the other (more specific) shapes inherits from
 
@@ -115,6 +116,15 @@ class Shape():
     def __repr__(self) -> str:
         return str(self.__dict__)
     
+    # Enforce implementation of these functions across all instances
+    @abstractmethod
+    def draw(self):
+        pass
+
+    @abstractmethod
+    def is_inside(self):
+        pass
+    
     # Translate, e.g set new values for x/y
     def translate(self, x: int, y: int) -> None:
         if not isinstance(x, int) or not isinstance(y, int):
@@ -127,8 +137,7 @@ class Shape():
         self._x -= self.acceleration_x
         self._y -= self.acceleration_y
         self.acceleration_y -= self.gravity
-
-
+    
 
 class Rectangle(Shape):
     """
