@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     # Fireworks section
     
-    Particles = []
+    particles = []
 
     pygame.init()
 
@@ -50,11 +50,11 @@ if __name__ == "__main__":
         # Wait for ticks to increment up to n number, where n is randomly defined
         if ticks >= TimeBetweenFireworks:
             # Spawn some particles!
-            Particles.append(Circle(randint(1, 1200), 800, 3))
-            Particles[-1].color = (255, 255, 255)
+            particles.append(Circle(randint(1, 1200), 800, 3))
+            particles[-1].color = (255, 255, 255)
             
             # Give acceleration so they shoot up from the bottom of the screen like rockets
-            Particles[-1].acceleration_y = randint(20, 38)
+            particles[-1].acceleration_y = randint(20, 38)
             
             # Reset tick based timers
             TimeBetweenFireworks = randint(20, 120)
@@ -68,8 +68,8 @@ if __name__ == "__main__":
             win.fill((0, 0, 0))
             
             # Draw and simulate physics for each particle instance
-            for Index, Particle in enumerate(Particles):
-                Particle.simulateForces()
+            for Index, Particle in enumerate(particles):
+                Particle.simulate_forces()
                 Particle.draw(win)
                 
                 # Check if particle has reached apogee (highest point in its ascent).
@@ -77,7 +77,7 @@ if __name__ == "__main__":
                 # negatively accelerating particles that represent the actual firework "cloud"
                 if Particle.acceleration_y <= 0 and Particle.radius >= 3:
                     # Delete the particle
-                    Particles.pop(Index)
+                    particles.pop(Index)
                     
                     # Spawn a bunch of new particles that will shoot in all different directions,
                     # simulating fireworks!
@@ -85,16 +85,16 @@ if __name__ == "__main__":
                         
                         # Spawn them at the prior location of the "parent" particle with a
                         # random size and acceleration
-                        Particles.append(
+                        particles.append(
                             Circle(Particle.x, Particle.y, randint(1, 2)))
-                        Particles[-1].acceleration_x = randint(-6, 6)
-                        Particles[-1].acceleration_y = randint(0, 10)
+                        particles[-1].acceleration_x = randint(-6, 6)
+                        particles[-1].acceleration_y = randint(0, 10)
                 
                 # Check if particle has gone out of bounds (e.g off the screen/window),
                 # if so, delete. This is crucial in order to prevent the program from killing itself by
                 # creating a bunch of class instances.
                 if Particle.y > 850:
-                    Particles.pop(Index)
+                    particles.pop(Index)
 
 
         ticks += 1

@@ -5,6 +5,9 @@ from random import randint
 class Shape():
     """Shape class, which the other (more specific) shapes inherits from"""
     def __init__(self, x: int, y: int) -> None:
+        if not isinstance(x, int) or not isinstance(y, int):
+            raise TypeError("only int's are allowed!")
+        
         # Readonly properties
         self._x = x
         self._y = y
@@ -38,6 +41,10 @@ class Shape():
     def circumference(self) -> int:
         return self._circumference
     
+    @property
+    def gravity(self) -> int:
+        return self._gravity
+    
     # Read/write property definitions
     @property
     def acceleration_x(self) -> int:
@@ -60,10 +67,6 @@ class Shape():
         self._acceleration_y = value
     
     @property
-    def gravity(self) -> int:
-        return self._gravity
-    
-    @property
     def color(self) -> tuple:
         return self._color
 
@@ -75,20 +78,20 @@ class Shape():
     
     # Overloading <, <=, >, and >=.
     # Check if the first object's _area is <, <=, >, or >= than the second ones. Return true/false.
-    def __lt__(self, OtherObj) -> bool:
-        if self.area < OtherObj.area: return True
+    def __lt__(self, other_obj) -> bool:
+        if self.area < other_obj.area: return True
         else: return False
         
-    def __le__(self, OtherObj) -> bool:
-        if self.area <= OtherObj.area: return True
+    def __le__(self, other_obj) -> bool:
+        if self.area <= other_obj.area: return True
         else: return False
 
-    def __gt__(self, OtherObj) -> bool:
-        if self.area > OtherObj.area: return True
+    def __gt__(self, other_obj) -> bool:
+        if self.area > other_obj.area: return True
         else: return False
         
-    def __ge__(self, OtherObj) -> bool:
-        if self.area >= OtherObj.area: return True
+    def __ge__(self, other_obj) -> bool:
+        if self.area >= other_obj.area: return True
         else: return False
     
     
@@ -107,7 +110,7 @@ class Shape():
         self._y = y
     
     # Simulate acceleration and gravitational force.
-    def simulateForces(self) -> None:
+    def simulate_forces(self) -> None:
         self._x -= self.acceleration_x
         self._y -= self.acceleration_y
         self.acceleration_y -= self.gravity
@@ -140,14 +143,13 @@ class Rectangle(Shape):
     def side_y(self) -> int:
         return self._side_y
     
-    def __eq__(self, OtherObj) -> bool:
-        if isinstance(OtherObj, Rectangle):
-            return True
+    def __eq__(self, other_obj) -> bool:
+        if isinstance(other_obj, Rectangle): return True
         return False
     
     # Check if a given point is inside the circle instance
-    def is_inside(self, PointX: int, PointY: int) -> bool:
-        if not isinstance(PointX, int) or not isinstance(PointY, int):
+    def is_inside(self, point_x: int, point_y: int) -> bool:
+        if not isinstance(point_x, int) or not isinstance(point_y, int):
             raise TypeError("only int's are allowed!")
         
         # Calculate x/y points on the perimeter of the rectangle
@@ -158,7 +160,8 @@ class Rectangle(Shape):
         y2 = self.y + (self.side_y / 2)
         
         # Check if the given point is greather than or less than the perimeter point values.
-        if PointX > x1 and PointX < x2 and PointY > y1 and PointY < y2: return True
+        if point_x > x1 and point_x < x2 and point_y > y1 and point_y < y2:
+            return True
         else: return False
     
     # Check if shape is a square
@@ -169,6 +172,9 @@ class Rectangle(Shape):
     
     # Draw the rectangle
     def draw(self, window: pygame.Surface) -> None:
+        if not isinstance(window, pygame.Surface):
+            raise TypeError("only 'pygame.Surface' allowed!")
+        
         pygame.draw.rect(window, self.color, pygame.Rect(
             self.x, self.y, self.side_x, self.side_y))
 
@@ -194,9 +200,8 @@ class Circle(Shape):
     def radius(self) -> int:
         return self._radius
     
-    def __eq__(self, OtherObj) -> bool:
-        if isinstance(OtherObj, Circle):
-            return True
+    def __eq__(self, other_obj) -> bool:
+        if isinstance(other_obj, Circle): return True
         return False
     
     # Check if circle is at Origo, with a radius of 1
@@ -205,16 +210,19 @@ class Circle(Shape):
         return False
     
     # Check if a given point is inside the circle instance
-    def is_inside(self, PointX: int, PointY: int) -> bool:
-        if not isinstance(PointX, int) or not isinstance(PointY, int):
+    def is_inside(self, point_x: int, point_y: int) -> bool:
+        if not isinstance(point_x, int) or not isinstance(point_y, int):
             raise TypeError("only int's are allowed!")
         
         # Source: https://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
         # Caution! PEMDAS/BEDMAS's order of operation
-        return (PointX - self.x)**2 + (PointY - self.y)**2 < self.radius**2
+        return (point_x - self.x)**2 + (point_y - self.y)**2 < self.radius**2
     
     # Draw circle
     def draw(self, window: pygame.Surface) -> None:
+        if not isinstance(window, pygame.Surface):
+            raise TypeError("only 'pygame.Surface' allowed!")
+        
         pygame.draw.circle(window, self.color, [self.x, self.y], self.radius, 0)
         
 
